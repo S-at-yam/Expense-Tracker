@@ -49,7 +49,7 @@ class _NewExpenseState extends State<NewExpense> {
         context: context,
         builder:
             (ctx) => AlertDialog(
-              title: Text('Invalid input'),
+              title: Text('Invalid input', style: TextStyle(color: Colors.red)),
               content: Text('Please enter a valid title, amount and date.'),
               actions: [
                 TextButton(
@@ -110,7 +110,7 @@ class _NewExpenseState extends State<NewExpense> {
                   const SizedBox(width: 5),
                   IconButton(
                     onPressed: _selectDate,
-                    icon: Icon(Icons.calendar_month),
+                    icon: Icon(Icons.calendar_month, color: Colors.red),
                   ),
                 ],
               ),
@@ -126,7 +126,10 @@ class _NewExpenseState extends State<NewExpense> {
                         .map(
                           (category) => DropdownMenuItem(
                             value: category,
-                            child: Text(category.name.toUpperCase()),
+                            child: Text(
+                              category.name.toUpperCase(),
+                              style: TextStyle(color: Colors.black),
+                            ),
                           ),
                         )
                         .toList(),
@@ -151,7 +154,7 @@ class _NewExpenseState extends State<NewExpense> {
 
                 child: Text(
                   'Save Expenses',
-                  //style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.green),
                 ),
               ),
             ],

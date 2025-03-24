@@ -25,9 +25,9 @@ class ChartBar extends StatelessWidget {
               color:
                   isDarkMode
                       ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context).colorScheme.primary.withValues(
-                        colorSpace: ColorSpace.sRGB,
-                      ),
+                      : Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 1),
             ),
           ),
         ),
