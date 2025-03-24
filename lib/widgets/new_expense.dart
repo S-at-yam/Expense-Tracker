@@ -148,14 +148,10 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               ElevatedButton(
                 onPressed: _saveExpenseData,
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(
-                    const Color.fromARGB(255, 17, 228, 45),
-                  ),
-                ),
+
                 child: Text(
                   'Save Expenses',
-                  style: TextStyle(color: Colors.white),
+                  //style: TextStyle(color: Colors.white),
                 ),
               ),
             ],
