@@ -75,7 +75,7 @@ void main() {
           color: kColorScheme.onPrimaryContainer,
         ),
       ),
-      themeMode: ThemeMode.system,
+      // themeMode: ThemeMode.system,
     ),
   );
 }
