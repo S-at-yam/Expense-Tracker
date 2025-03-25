@@ -63,7 +63,7 @@ void main() {
           bodyMedium: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.normal,
-            color: kColorScheme.onSurfaceVariant,
+            //color: kColorScheme.onSurfaceVariant,
           ),
         ),
         iconButtonTheme: IconButtonThemeData(

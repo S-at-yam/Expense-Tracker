@@ -76,90 +76,102 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
+    final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
-      child: Column(
-        children: [
-          TextField(
-            controller: _titleController,
-            decoration: InputDecoration(labelText: 'Title'),
-            maxLength: 50,
-          ),
-          //const SizedBox(height: 5),
-          Row(
+      padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
+      child: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: SingleChildScrollView(
+          child: Column(
             children: [
-              Expanded(
-                child: TextField(
-                  controller: _amountController,
-                  decoration: InputDecoration(
-                    labelText: 'Amount',
-                    prefixText: '\$ ',
-                  ),
-                  keyboardType: TextInputType.number,
+              TextField(
+                controller: _titleController,
+                decoration: InputDecoration(
+                  labelText: 'Title',
+                  fillColor: Colors.black,
                 ),
+                maxLength: 50,
+                style: TextStyle(color: Colors.black),
               ),
+              //const SizedBox(height: 5),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    _selectedDate == null
-                        ? 'No Date Selected'
-                        : formatter.format(_selectedDate!),
+                  Expanded(
+                    child: TextField(
+                      controller: _amountController,
+                      decoration: InputDecoration(
+                        labelText: 'Amount',
+                        prefixText: '\$ ',
+                      ),
+                      keyboardType: TextInputType.number,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
-                  const SizedBox(width: 5),
-                  IconButton(
-                    onPressed: _selectDate,
-                    icon: Icon(Icons.calendar_month, color: Colors.red),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        _selectedDate == null
+                            ? 'No Date Selected'
+                            : formatter.format(_selectedDate!),
+                      ),
+                      const SizedBox(width: 5),
+                      IconButton(
+                        onPressed: _selectDate,
+                        icon: Icon(Icons.calendar_month, color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  DropdownButton(
+                    value: _selectedCategory,
+                    items:
+                        Category.values
+                            .map(
+                              (category) => DropdownMenuItem(
+                                value: category,
+                                child: Text(
+                                  category.name.toUpperCase(),
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                    onChanged: (value) {
+                      if (value == null) {
+                        return;
+                      }
+                      setState(() {
+                        _selectedCategory = value;
+                      });
+                    },
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('Cancel'),
+                  ),
+                  ElevatedButton(
+                    onPressed: _saveExpenseData,
+
+                    child: Text(
+                      'Save Expenses',
+                      style: TextStyle(color: Colors.green),
+                    ),
                   ),
                 ],
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              DropdownButton(
-                value: _selectedCategory,
-                items:
-                    Category.values
-                        .map(
-                          (category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(
-                              category.name.toUpperCase(),
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        )
-                        .toList(),
-                onChanged: (value) {
-                  if (value == null) {
-                    return;
-                  }
-                  setState(() {
-                    _selectedCategory = value;
-                  });
-                },
-              ),
-              const Spacer(),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Cancel'),
-              ),
-              ElevatedButton(
-                onPressed: _saveExpenseData,
-
-                child: Text(
-                  'Save Expenses',
-                  style: TextStyle(color: Colors.green),
-                ),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
